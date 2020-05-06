@@ -19,6 +19,31 @@ class CartItemRow extends StatelessWidget {
       onDismissed: (direction) {
         Provider.of<Cart>(context, listen: false).removeItem(productId);
       },
+      confirmDismiss: (direction) => showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(
+            'Are you sure',
+          ),
+          content: Text(
+            'Do you want to remove the item from the cart?',
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(_).pop(false);
+              },
+              child: Text('No'),
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(_).pop(true);
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        ),
+      ),
       background: Container(
         color: Theme.of(context).errorColor,
         child: Icon(

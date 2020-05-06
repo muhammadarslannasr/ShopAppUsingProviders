@@ -42,10 +42,19 @@ class CartScreen extends StatelessWidget {
                   ),
                   FlatButton(
                     onPressed: () {
-                      Provider.of<Orders>(context, listen: false).addOrder(
-                        cart.items.values.toList(),
-                        cart.totalAmount,
-                      );
+                      cart.items.length > 0
+                          ? Provider.of<Orders>(context, listen: false)
+                              .addOrder(
+                              cart.items.values.toList(),
+                              cart.totalAmount,
+                            )
+                          : Scaffold.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Sorry No Cart Data'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+
                       //Clear Cart
                       cart.clear();
                     },
